@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import letConst from './class/let_const'
+import letConst from './class/jiegou'
 
 class Test {
     constructor() {

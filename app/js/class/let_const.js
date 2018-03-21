@@ -22,6 +22,6 @@ function last() {
         a: 1
     }
     k.b = 3;
-    console.log(PI, 3);
+    console.log(PI, k);
 }
 last();

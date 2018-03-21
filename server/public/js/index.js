@@ -55,9 +55,9 @@
 
 	__webpack_require__(2);
 
-	var _let_const = __webpack_require__(329);
+	var _jiegou = __webpack_require__(329);
 
-	var _let_const2 = _interopRequireDefault(_let_const);
+	var _jiegou2 = _interopRequireDefault(_jiegou);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9216,33 +9216,142 @@
 /* 329 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
-	// 1. let 块级作用域在 {} 内
-	// 2. es6 强制开启 use strict 模式, 若是对象没有定义会抛出异常 ReferenceError: i is not defined 而不是 undefined
-	// 3. let 不能重复定义 如： let a=1; let a=2; 
-	function test() {
-	    for (var i = 1; i < 3; i++) {
-	        console.log(i);
-	    }
-	    // console.log(i) ReferenceError: i is not defined
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
+
+	// 数据类型 数组， 对象，字符串，布尔值， 函数参数 ，数值 解构
+	// {}应用作用域块进行变量隔离
+	// 解构： 等号左边的结构 和 等号右边的结构保持一致
+	{
+	    var a = void 0,
+	        b = void 0,
+	        rest = void 0;
+	    a = 1;
+	    b = 2;
+
+	    console.log('a=', a, 'b=', b);
 	}
-	test();
+	{
+	    var _a = void 0,
+	        _b = void 0,
+	        _rest = void 0;
+	    _a = 1;
+	    _b = 2;
+	    _rest = [3, 4, 5, 6];
 
-	// 1. const 定义的常量是不能修改的
-	// 2. const 有作用域的概念
-	// 3. const 声明的时候必须付值
-	// 4. const 变量赋值一个 {} 可以修改的原因是 {} 是引用类型 const k = {} k 指向指针，指针不变的，但是 {} 本身是可以改变的。 
-	function last() {
-	    var PI = 3.1415;
-	    // PI = 8; SyntaxError : "PI" is read-only
-	    var k = {
-	        a: 1
+	    console.log('a=', _a, 'b=', _b, 'rest=', _rest);
+	}
+	{
+	    var _a2 = void 0,
+	        _b2 = void 0;
+	    var _a$b = { a: 1, b: 2 };
+	    _a2 = _a$b.a;
+	    _b2 = _a$b.b;
+
+	    console.log('a=', _a2, 'b=', _b2);
+	}
+	{
+	    // 解构没有配对成功的话为 undefind , 可以设置默认值
+	    var _a3 = void 0,
+	        _b3 = void 0,
+	        _rest2 = void 0,
+	        c = void 0;
+	    var _ref = [1, 2];
+	    _a3 = _ref[0];
+	    _b3 = _ref[1];
+	    var _ref$ = _ref[2];
+	    c = _ref$ === undefined ? 3 : _ref$;
+
+	    console.log('a=', _a3, 'b=', _b3, 'c=', c);
+	}
+	{
+	    // a b 两个值交换
+	    var _a4 = 1;
+	    var _b4 = 2;
+	    var _ref2 = [_b4, _a4];
+	    _a4 = _ref2[0];
+	    _b4 = _ref2[1];
+
+	    console.log('a=', _a4, 'b=', _b4);
+	}
+	{
+	    // 函数解构负值
+	    var f = function f() {
+	        return [1, 2];
 	    };
-	    k.b = 3;
-	    console.log(PI, 3);
+
+	    var _a5 = void 0,
+	        _b5 = void 0;
+
+	    var _f = f();
+
+	    var _f2 = _slicedToArray(_f, 2);
+
+	    _a5 = _f2[0];
+	    _b5 = _f2[1];
+
+	    console.log('a=', _a5, 'b=', _b5);
 	}
-	last();
+
+	{
+	    // 函数解构负值,只关注 1，4 
+	    var _f3 = function _f3() {
+	        return [1, 2, 3, 4, 5];
+	    };
+
+	    var _a6 = void 0,
+	        _b6 = void 0;
+
+	    var _f4 = _f3();
+
+	    var _f5 = _slicedToArray(_f4, 4);
+
+	    _a6 = _f5[0];
+	    _b6 = _f5[3];
+
+	    console.log('a=', _a6, 'b=', _b6);
+	}
+	{
+	    // 函数解构负值,不确定返回参数长度是多少，只关注第一个，其他的放到数组中
+	    var _f6 = function _f6() {
+	        return [1, 2, 3, 4, 5];
+	    };
+
+	    var _a7 = void 0,
+	        _b7 = void 0;
+
+	    var _f7 = _f6();
+
+	    var _f8 = _toArray(_f7);
+
+	    _a7 = _f8[0];
+	    _b7 = _f8.slice(2);
+
+	    console.log('a=', _a7, 'b=', _b7);
+	}
+	{
+	    var o = { p: 41, q: true };
+	    var p = o.p,
+	        q = o.q;
+
+	    console.log('p=', p, 'q=', q);
+	}
+	{
+	    var metaData = {
+	        title: 'abc',
+	        test: [{ title: 'test1', desc: 'desc1' }, { title: 'test2', desc: 'desc2' }]
+	    };
+
+	    var esTitle = metaData.title,
+	        _metaData$test = _slicedToArray(metaData.test, 2),
+	        cnTitle = _metaData$test[0].title,
+	        snTitle = _metaData$test[1].title;
+
+	    console.log('title=', esTitle, 'title=', cnTitle, 'title=', snTitle);
+	}
 
 /***/ })
 /******/ ]);
