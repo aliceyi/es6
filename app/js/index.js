@@ -1,8 +1,9 @@
 import 'babel-polyfill';
+import letConst from './class/let_const'
 
 class Test {
     constructor() {
-        this.a ='hello'
+        this.a ='hellossssaaa'
     }
 }
 

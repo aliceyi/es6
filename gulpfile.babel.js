@@ -1,3 +1,3 @@
 import requireDir from 'require-dir';
 
-requireDir('./tasksn');
+requireDir('./tasks');
