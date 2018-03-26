@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import letConst from './class/array'
+import letConst from './class/symbol'
 
 class Test {
     constructor() {
