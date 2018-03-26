@@ -55,9 +55,9 @@
 
 	__webpack_require__(2);
 
-	var _symbol = __webpack_require__(329);
+	var _map = __webpack_require__(329);
 
-	var _symbol2 = _interopRequireDefault(_symbol);
+	var _map2 = _interopRequireDefault(_map);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9220,42 +9220,56 @@
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	// set ,weakSet 
+	// map weakMap  
 
-	// 概念 数据类型提供独一无二的值
-	// 作用
 	{
-	    // symbol 声明
-	    var a1 = Symbol();
-	    var a2 = Symbol();
-	    console.log('a1===a2', a1 === a2);
-	    // symbol 同一个变量， 参数是key 值
-	    var a3 = Symbol.for('a3');
-	    var a4 = Symbol.for('a3');
-	    console.log('a3===a4', a3 === a4);
+	    var list = new Set();
+	    list.add(5);
+	    list.add(7);
+	    console.log('list.size', list.size);
+	}
+
+	{
+	    var arr = [1, 2, 3, 4, 5];
+	    var _list = new Set(arr);
+	    console.log('list.size', _list.size);
 	}
 	{
-	    var _obj;
+	    //set 元素必须是唯一的, 可以利用 set 去重, 但不会做强制数据类型转化。
+	    var _list2 = new Set();
+	    _list2.add(1);
+	    _list2.add(2);
+	    _list2.add(1);
+	    console.log('list', _list2);
 
-	    var _a = Symbol.for('abc');
-	    var obj = (_obj = {}, _defineProperty(_obj, _a, '123'), _defineProperty(_obj, 'abc', 345), _defineProperty(_obj, 'c', 456), _obj);
-	    console.log('obj', obj);
+	    var _arr = [1, 3, 4, 3, 4, 2, '2'];
+	    var list2 = new Set(_arr);
+	    console.log('list2', list2);
+	}
+	{
+	    var _arr2 = ['add', 'delete', 'clear', 'has'];
+	    var _list3 = new Set(_arr2);
+	    console.log('list.has("add")', _list3.has("add"));
+	    console.log('list.has("add")', _list3.delete("add"), _list3);
+	    _list3.clear();
+	    console.log('list', _list3);
+	}
 
-	    // for in or of 取不到 symbol 值
-
+	{
+	    // set loop
+	    var _arr3 = ['add', 'delete', 'clear', 'has'];
+	    var _list4 = new Set(_arr3);
 	    var _iteratorNormalCompletion = true;
 	    var _didIteratorError = false;
 	    var _iteratorError = undefined;
 
 	    try {
-	        for (var _iterator = Object.entries(obj)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	            var _step$value = _slicedToArray(_step.value, 2),
-	                key = _step$value[0],
-	                value = _step$value[1];
+	        for (var _iterator = _list4.keys()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var key = _step.value;
 
-	            console.log('[key,value]', [key, value]);
+	            console.log('key', key);
 	        }
-	        // 只能取 sysbel 值
 	    } catch (err) {
 	        _didIteratorError = true;
 	        _iteratorError = err;
@@ -9271,12 +9285,119 @@
 	        }
 	    }
 
-	    Object.getOwnPropertySymbols(obj).forEach(function (item) {
-	        console.log('obj[item]', obj[item]);
+	    var _iteratorNormalCompletion2 = true;
+	    var _didIteratorError2 = false;
+	    var _iteratorError2 = undefined;
+
+	    try {
+	        for (var _iterator2 = _list4.values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	            var value = _step2.value;
+
+	            console.log('value', value);
+	        }
+	    } catch (err) {
+	        _didIteratorError2 = true;
+	        _iteratorError2 = err;
+	    } finally {
+	        try {
+	            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	                _iterator2.return();
+	            }
+	        } finally {
+	            if (_didIteratorError2) {
+	                throw _iteratorError2;
+	            }
+	        }
+	    }
+
+	    var _iteratorNormalCompletion3 = true;
+	    var _didIteratorError3 = false;
+	    var _iteratorError3 = undefined;
+
+	    try {
+	        for (var _iterator3 = _list4[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	            var _value = _step3.value;
+
+	            console.log('value', _value);
+	        }
+	    } catch (err) {
+	        _didIteratorError3 = true;
+	        _iteratorError3 = err;
+	    } finally {
+	        try {
+	            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+	                _iterator3.return();
+	            }
+	        } finally {
+	            if (_didIteratorError3) {
+	                throw _iteratorError3;
+	            }
+	        }
+	    }
+
+	    var _iteratorNormalCompletion4 = true;
+	    var _didIteratorError4 = false;
+	    var _iteratorError4 = undefined;
+
+	    try {
+	        for (var _iterator4 = _list4.entries()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	            var _step4$value = _slicedToArray(_step4.value, 2),
+	                _key = _step4$value[0],
+	                _value2 = _step4$value[1];
+
+	            console.log('key,value', _key, _value2);
+	        }
+	    } catch (err) {
+	        _didIteratorError4 = true;
+	        _iteratorError4 = err;
+	    } finally {
+	        try {
+	            if (!_iteratorNormalCompletion4 && _iterator4.return) {
+	                _iterator4.return();
+	            }
+	        } finally {
+	            if (_didIteratorError4) {
+	                throw _iteratorError4;
+	            }
+	        }
+	    }
+
+	    _list4.forEach(function (item) {
+	        return console.log('item', item);
 	    });
-	    Reflect.ownKeys(obj).forEach(function (item) {
-	        console.log('reflect', item, obj[item]);
-	    });
+	}
+
+	{
+	    // 没有 size clear 方法，  不能遍历, 只能设置对象
+	    var weaklist = new WeakSet();
+	    var arg = {};
+
+	    weaklist.add(arg);
+	    console.log('weaklist', weaklist);
+	}
+
+	{
+	    // map.set 设置值
+	    var map = new Map();
+	    var _arr4 = ['123'];
+	    map.set(_arr4, 456);
+	    console.log('map,map.get(arr)', map, map.get(_arr4));
+	}
+
+	{
+	    var _map = new Map([['a', 123], ['b', 456]]);
+	    console.log('map', _map);
+	    console.log('map.size', _map.size);
+	    console.log('delete', _map.delete('a'), _map);
+	    console.log('clear', _map.clear(), _map);
+	}
+
+	{
+	    // 可以接受的key 必须是对象
+	    var weakmap = new WeakMap();
+	    var o = {};
+	    weakmap.set(o, 123);
+	    console.log('weakmap.get(o)', weakmap.get(o));
 	}
 
 /***/ })
