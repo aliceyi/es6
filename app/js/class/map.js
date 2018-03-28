@@ -95,3 +95,92 @@
     console.log('weakmap.get(o)',weakmap.get(o));
     
 }
+
+{
+    // 数据结构横向对比。 增 删 改 查
+    let map = new Map()
+    let array = []
+    // 增
+    map.set('t',1)
+    array.push({t:1});
+    console.info('map-array-add', map, array)
+
+    // 查
+    let map_exist = map.has('t')
+    let array_exist = array.find(item => item.t)
+    console.info('map-array-find', map_exist, array_exist)
+
+    // 改
+    map.set('t', 2)
+    array.forEach((item,index) => {
+        return item.t ? item.t = 2 : item;
+    })
+    console.info('map-array-modify', map, array)
+
+    // 删
+    map.delete('t')
+    let index = array.findIndex(item => item.t)
+    array.splice(index,1)
+    console.info('map-array-empty', map, array)
+}
+
+{
+    // set he array 对比
+    let set = new Set()
+    let array = []
+    set.add({t:1})
+    array.push({t:1});
+    console.info('set-array-add', set, array)
+
+    // 查
+    let set_exist = set.has({t:1})
+    let array_exist = array.find(item => item.t)
+    console.info('set-array-find', set_exist, array_exist)
+
+    // 改
+    set.forEach(item => item.t ? item.t =2 : '')
+    array.forEach(item => item.t ? item.t =2 : '')
+    console.info('set-array-modify', set, array)
+
+    // 删
+    set.forEach( item  => item.t ? set.delete(item) : '')
+    let index = array.findIndex(item => item.t)
+    array.splice(index,1)
+    console.info('set-array-empty', set, array)
+}
+
+{
+    // 优先使用 map ，唯一性要求比较高用 set ，放弃 array && object 来做数据存储类型。
+    // map set object 对比
+    let item = {t:1}
+    let map = new Map()
+    let set = new Set()
+    let obj = {}
+
+    //增
+    map.set('t',1)
+    set.add(item)
+    obj['t'] = 1
+    console.info('map-set-obj', obj, map ,set)
+
+    //查
+    console.info(
+        {
+            map_exist: map.has('s'),
+            set_exist: set.has(item),
+            obj_exist: 't' in obj
+        }
+    )
+
+    // 改
+    map.set('t', 2)
+    item.t =2
+    obj['t'] = 2
+    console.info('map-set-obj-modify', obj, map ,set)
+
+    //删
+    map.delete('t')
+    set.delete(item)
+    delete obj['t']
+    console.info('map-set-obj-empty', obj, map ,set)
+}
