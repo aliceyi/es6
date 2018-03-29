@@ -9316,10 +9316,10 @@
 	                    if (!!va(value)) {
 	                        return Reflect.set(target, key, value, proxy);
 	                    } else {
-	                        throw Errow('can not set ' + key + ' to ' + value);
+	                        throw Error('\u4E0D\u80FD\u8BBE\u7F6E ' + key + ' \u5230 ' + value);
 	                    }
 	                } else {
-	                    throw Errow(key + ' \u4E0D\u5B58\u5728');
+	                    throw Error(key + ' \u4E0D\u5B58\u5728');
 	                }
 	            }
 	        });
@@ -9355,7 +9355,6 @@
 	    var person = new Person('lilei', 30);
 	    console.log('person', person);
 	    person.name = 11;
-	    console.log('person2', person);
 	}
 
 /***/ })

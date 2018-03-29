@@ -92,10 +92,10 @@
                     if(!!va(value)) {
                         return Reflect.set(target, key, value, proxy)
                     } else {
-                        throw Errow(`can not set ${key} to ${value}`)
+                        throw Error(`不能设置 ${key} 到 ${value}`)
                     }
                 }else{
-                    throw Errow(`${key} 不存在`)
+                    throw Error(`${key} 不存在`)
                 }
             }
         })
@@ -121,5 +121,4 @@
     const person = new Person('lilei', 30)
     console.log('person',person);
     person.name = 11
-    console.log('person2',person);
 }
