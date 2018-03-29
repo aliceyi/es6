@@ -9218,6 +9218,8 @@
 
 	'use strict';
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 	{
 	    // proxy 代理 && reflect 对象的反射
 	    //供应商
@@ -9303,8 +9305,57 @@
 	}
 
 	{
-	    // 项目中如何使用 数据类型校验
+	    // 项目中如何使用 数据类型校验 和业务解耦 
 
+	    var validator = function validator(target, _validator) {
+	        return new Proxy(target, {
+	            _validator: _validator,
+	            set: function set(target, key, value, proxy) {
+	                if (target.hasOwnProperty(key)) {
+	                    var va = this._validator[key];
+	                    if (!!va(value)) {
+	                        return Reflect.set(target, key, value, proxy);
+	                    } else {
+	                        throw Errow('can not set ' + key + ' to ' + value);
+	                    }
+	                } else {
+	                    throw Errow(key + ' \u4E0D\u5B58\u5728');
+	                }
+	            }
+	        });
+	    };
+
+	    var personValidators = {
+	        name: function name(val) {
+	            return typeof val === 'string';
+	        },
+	        age: function (_age) {
+	            function age(_x) {
+	                return _age.apply(this, arguments);
+	            }
+
+	            age.toString = function () {
+	                return _age.toString();
+	            };
+
+	            return age;
+	        }(function (val) {
+	            return typeof age === 'number' && val > 18;
+	        })
+	    };
+
+	    var Person = function Person(name, age) {
+	        _classCallCheck(this, Person);
+
+	        this.name = name;
+	        this.age = age;
+	        return validator(this, personValidators);
+	    };
+
+	    var person = new Person('lilei', 30);
+	    console.log('person', person);
+	    person.name = 11;
+	    console.log('person2', person);
 	}
 
 /***/ })

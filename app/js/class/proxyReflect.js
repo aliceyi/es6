@@ -81,6 +81,45 @@
 }
 
 {
-    // 项目中如何使用 数据类型校验
-    
+    // 项目中如何使用 数据类型校验 和业务解耦 
+
+    function validator(target, validator) {
+        return new Proxy(target, {
+            _validator: validator,
+            set(target,key, value, proxy) {
+                if(target.hasOwnProperty(key)) {
+                    let va = this._validator[key]
+                    if(!!va(value)) {
+                        return Reflect.set(target, key, value, proxy)
+                    } else {
+                        throw Errow(`can not set ${key} to ${value}`)
+                    }
+                }else{
+                    throw Errow(`${key} 不存在`)
+                }
+            }
+        })
+    }
+
+    const personValidators = {
+        name(val) {
+            return typeof val === 'string'
+        },
+        age(val) {
+            return typeof age === 'number' && val > 18
+        }
+    }
+
+    class Person {
+        constructor(name, age){
+            this.name = name
+            this.age = age
+            return validator(this, personValidators)
+        }
+    }
+
+    const person = new Person('lilei', 30)
+    console.log('person',person);
+    person.name = 11
+    console.log('person2',person);
 }
