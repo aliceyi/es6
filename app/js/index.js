@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import letConst from './class/proxyReflect'
+import letConst from './class/class'
 
 class Test {
     constructor() {

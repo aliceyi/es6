@@ -55,9 +55,9 @@
 
 	__webpack_require__(2);
 
-	var _proxyReflect = __webpack_require__(329);
+	var _class = __webpack_require__(329);
 
-	var _proxyReflect2 = _interopRequireDefault(_proxyReflect);
+	var _class2 = _interopRequireDefault(_class);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9218,143 +9218,176 @@
 
 	'use strict';
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	{
-	    // proxy 代理 && reflect 对象的反射
-	    //供应商
-	    var obj = {
-	        time: '2018-03-22',
-	        name: 'net',
-	        _r: 123
-
-	        //代理对象
-	    };var monitor = new Proxy(obj, {
-	        // 拦截对象属性的读取
-	        get: function get(target, key) {
-	            return target[key].replace('2018', '2019');
-	        },
-
-	        // 拦截对象属性的设置
-	        set: function set(target, key, value) {
-	            if (key === 'name') {
-	                return target[key] = value;
-	            } else {
-	                return target[key];
-	            }
-	        },
-
-	        // 拦截 key in object 操作
-	        has: function has(target, key) {
-	            if (key === 'name') {
-	                return target[key];
-	            } else {
-	                return false;
-	            }
-	        },
-
-	        // 拦截 delete
-	        deleteProperty: function deleteProperty(target, key) {
-	            if (key.indexOf('_') >= -1) {
-	                delete target[key];
-	                return true;
-	            } else {
-	                return target[key];
-	            }
-	        },
-
-	        // 拦截 Object.keys Object.getOwnPropertySymbols Object.getOwnPropertyName
-	        ownKeys: function ownKeys(target) {
-	            return Object.keys(target).filter(function (item) {
-	                return item != 'time';
-	            });
-	        }
-	    });
-
-	    //用户访问 monitor ， monitor 通过 proxy 传递给 供应商
-	    console.log('monitor.time', monitor.time);
-	    monitor.time = '2018';
-	    monitor.name = 'nnnnnn';
-	    console.log('monitor.time', monitor.time, monitor.name);
-
-	    console.log('has', 'name' in monitor, 'time' in monitor);
-
-	    delete monitor.time;
-	    console.log('delete', monitor);
-
-	    //    delete monitor._r
-	    //    console.log('delete', monitor);
-
-	    console.log('ownkeys', Object.keys(monitor));
-	}
+	// 基本语法， 类的继承， 静态方法， 静态属性， getter ，setter
 
 	{
-	    var _obj = {
-	        time: '2018-03-22',
-	        name: 'net',
-	        _r: 123
-	    };
+	    //类的基本定义和生成实类
+	    var Perent =
+	    // 构造函数
+	    function Perent() {
+	        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'alice';
 
-	    console.log('Reflect.get', Reflect.get(_obj, 'time'));
-
-	    Reflect.set(_obj, 'name', 'test net');
-
-	    console.log('obj', _obj);
-
-	    console.log('Reflect.has', Reflect.has(_obj, 'name'));
-	}
-
-	{
-	    // 项目中如何使用 数据类型校验 和业务解耦 
-
-	    var validator = function validator(target, _validator) {
-	        return new Proxy(target, {
-	            _validator: _validator,
-	            set: function set(target, key, value, proxy) {
-	                if (target.hasOwnProperty(key)) {
-	                    var va = this._validator[key];
-	                    if (!!va(value)) {
-	                        return Reflect.set(target, key, value, proxy);
-	                    } else {
-	                        throw Error('\u4E0D\u80FD\u8BBE\u7F6E ' + key + ' \u5230 ' + value);
-	                    }
-	                } else {
-	                    throw Error(key + ' \u4E0D\u5B58\u5728');
-	                }
-	            }
-	        });
-	    };
-
-	    var personValidators = {
-	        name: function name(val) {
-	            return typeof val === 'string';
-	        },
-	        age: function (_age) {
-	            function age(_x) {
-	                return _age.apply(this, arguments);
-	            }
-
-	            age.toString = function () {
-	                return _age.toString();
-	            };
-
-	            return age;
-	        }(function (val) {
-	            return typeof age === 'number' && val > 18;
-	        })
-	    };
-
-	    var Person = function Person(name, age) {
-	        _classCallCheck(this, Person);
+	        _classCallCheck(this, Perent);
 
 	        this.name = name;
-	        this.age = age;
-	        return validator(this, personValidators);
 	    };
 
-	    var person = new Person('lilei', 30);
-	    console.log('person', person);
-	    person.name = 11;
+	    var perent = new Perent('bob');
+
+	    console.log('perent', perent);
+	}
+
+	{
+	    //类的继承
+	    var _Perent =
+	    // 构造函数
+	    function _Perent() {
+	        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'alice';
+
+	        _classCallCheck(this, _Perent);
+
+	        this.name = name;
+	    };
+
+	    var Child = function (_Perent2) {
+	        _inherits(Child, _Perent2);
+
+	        function Child() {
+	            _classCallCheck(this, Child);
+
+	            return _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).apply(this, arguments));
+	        }
+
+	        return Child;
+	    }(_Perent);
+
+	    console.log('new child()', new Child());
+	}
+
+	{
+	    //类的继承
+	    var _Perent3 =
+	    // 构造函数
+	    function _Perent3() {
+	        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'alice';
+
+	        _classCallCheck(this, _Perent3);
+
+	        this.name = name;
+	    };
+
+	    var _Child = function (_Perent4) {
+	        _inherits(_Child, _Perent4);
+
+	        function _Child() {
+	            var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "child";
+
+	            _classCallCheck(this, _Child);
+
+	            var _this2 = _possibleConstructorReturn(this, (_Child.__proto__ || Object.getPrototypeOf(_Child)).call(this, name));
+	            // this 需要放在 super 之后， super 一定放在构造函数 第一行。
+
+
+	            _this2.type = 'child';
+	            return _this2;
+	        }
+
+	        return _Child;
+	    }(_Perent3);
+
+	    console.log('new child()', new _Child());
+	}
+	{
+	    // 类中到 getter && setter
+	    var _Perent5 = function () {
+	        // 构造函数
+	        function _Perent5() {
+	            var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'alice';
+
+	            _classCallCheck(this, _Perent5);
+
+	            this.name = name;
+	        }
+
+	        _createClass(_Perent5, [{
+	            key: 'longName',
+	            get: function get() {
+	                return 'smis ' + this.name;
+	            },
+	            set: function set(value) {
+	                this.name = value;
+	            }
+	        }]);
+
+	        return _Perent5;
+	    }();
+
+	    var v = new _Perent5();
+	    console.log('v.longName()', v.longName);
+	    v.longName = 'hihi';
+	    console.log('v.longName', v.longName);
+	}
+
+	{
+	    //静态方法 通过类来调用
+
+	    var _Perent6 = function () {
+	        // 构造函数
+	        function _Perent6() {
+	            var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'alice';
+
+	            _classCallCheck(this, _Perent6);
+
+	            this.name = name;
+	        }
+
+	        _createClass(_Perent6, null, [{
+	            key: 'tell',
+	            value: function tell() {
+	                console.log('tell');
+	            }
+	        }]);
+
+	        return _Perent6;
+	    }();
+
+	    _Perent6.tell();
+	}
+
+	{
+	    //静态属性 还么有实现, 直接在类上定义属性
+
+	    var _Perent7 = function () {
+	        // 构造函数
+	        function _Perent7() {
+	            var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'alice';
+
+	            _classCallCheck(this, _Perent7);
+
+	            this.name = name;
+	        }
+
+	        _createClass(_Perent7, null, [{
+	            key: 'tell',
+	            value: function tell() {
+	                console.log('tell');
+	            }
+	        }]);
+
+	        return _Perent7;
+	    }();
+
+	    _Perent7.type = 'test';
+
+	    console.log('Perent.type', _Perent7.type);
 	}
 
 /***/ })
