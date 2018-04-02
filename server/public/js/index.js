@@ -55,23 +55,27 @@
 
 	__webpack_require__(2);
 
-	var _generator = __webpack_require__(329);
+	var _model = __webpack_require__(329);
 
-	var _generator2 = _interopRequireDefault(_generator);
+	var _model2 = _interopRequireDefault(_model);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	// console.log(A, test, Hello)
+	console.log(new _model2.default.Hello().test());
 
-	var Test = function Test() {
-	    _classCallCheck(this, Test);
+	// class Test {
+	//     constructor() {
+	//         this.a ='hellossssaaa'
+	//     }
+	// }
 
-	    this.a = 'hellossssaaa';
-	};
+	// let test = new Test();
 
-	var test = new Test();
+	// document.body.innerHTML = test.a
 
-	document.body.innerHTML = test.a;
+	// import letConst from './class/model'
+	// import {A, test, Hello} from './class/model'
 
 /***/ }),
 /* 2 */
@@ -666,7 +670,7 @@
 
 	'use strict';
 
-	var core = module.exports = { version: '2.5.4' };
+	var core = module.exports = { version: '2.5.3' };
 	if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /***/ }),
@@ -2877,6 +2881,7 @@
 	var $export = __webpack_require__(9);
 	var redefine = __webpack_require__(19);
 	var hide = __webpack_require__(11);
+	var has = __webpack_require__(6);
 	var Iterators = __webpack_require__(130);
 	var $iterCreate = __webpack_require__(131);
 	var setToStringTag = __webpack_require__(25);
@@ -2913,7 +2918,7 @@
 	  var VALUES_BUG = false;
 	  var proto = Base.prototype;
 	  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-	  var $default = $native || getMethod(DEFAULT);
+	  var $default = !BUGGY && $native || getMethod(DEFAULT);
 	  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
 	  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
 	  var methods, key, IteratorPrototype;
@@ -2924,7 +2929,7 @@
 	      // Set @@toStringTag to native iterators
 	      setToStringTag(IteratorPrototype, TAG, true);
 	      // fix for some old engines
-	      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
+	      if (!LIBRARY && !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
 	    }
 	  }
 	  // fix Array#{values, @@iterator}.name in V8 / FF
@@ -4559,7 +4564,7 @@
 	      var resolve = reaction.resolve;
 	      var reject = reaction.reject;
 	      var domain = reaction.domain;
-	      var result, then, exited;
+	      var result, then;
 	      try {
 	        if (handler) {
 	          if (!ok) {
@@ -4568,11 +4573,8 @@
 	          }
 	          if (handler === true) result = value;else {
 	            if (domain) domain.enter();
-	            result = handler(value); // may throw
-	            if (domain) {
-	              domain.exit();
-	              exited = true;
-	            }
+	            result = handler(value);
+	            if (domain) domain.exit();
 	          }
 	          if (result === reaction.promise) {
 	            reject(TypeError('Promise-chain cycle'));
@@ -4581,7 +4583,6 @@
 	          } else resolve(result);
 	        } else reject(value);
 	      } catch (e) {
-	        if (domain && !exited) domain.exit();
 	        reject(e);
 	      }
 	    };
@@ -9221,35 +9222,51 @@
 
 	'use strict';
 
-	{
-	    var tell = /*#__PURE__*/regeneratorRuntime.mark(function tell() {
-	        return regeneratorRuntime.wrap(function tell$(_context) {
-	            while (1) {
-	                switch (_context.prev = _context.next) {
-	                    case 0:
-	                        _context.next = 2;
-	                        return 'a';
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
-	                    case 2:
-	                        _context.next = 4;
-	                        return 'b';
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	                    case 4:
-	                        return _context.abrupt('return', 'c');
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	                    case 5:
-	                    case 'end':
-	                        return _context.stop();
-	                }
-	            }
-	        }, tell, this);
-	    });
-	    var k = tell();
-	    console.log(k.next());
-	    console.log(k.next());
-	    console.log(k.next());
-	    console.log(k.next());
-	}
+	// import export
+	// export let A = 123
+	// export function test() {
+	//     console.log('test');
+
+	// }
+	// export class Hello {
+	//     test(){
+	//         console.log('class test');
+	//     }
+	// }
+
+	var A = 123;
+	var test = function test() {
+	    console.log('test');
+	};
+
+	var Hello = function () {
+	    function Hello() {
+	        _classCallCheck(this, Hello);
+	    }
+
+	    _createClass(Hello, [{
+	        key: 'test',
+	        value: function test() {
+	            console.log('class test');
+	        }
+	    }]);
+
+	    return Hello;
+	}();
+
+	exports.default = {
+	    A: A,
+	    test: test,
+	    Hello: Hello
+	};
 
 /***/ })
 /******/ ]);

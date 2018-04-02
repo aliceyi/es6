@@ -1,12 +1,18 @@
 import 'babel-polyfill';
-import letConst from './class/generator'
+// import letConst from './class/model'
+// import {A, test, Hello} from './class/model'
+import model from './class/model'
 
-class Test {
-    constructor() {
-        this.a ='hellossssaaa'
-    }
-}
 
-let test = new Test();
+// console.log(A, test, Hello)
+console.log((new model.Hello).test())
 
-document.body.innerHTML = test.a
+// class Test {
+//     constructor() {
+//         this.a ='hellossssaaa'
+//     }
+// }
+
+// let test = new Test();
+
+// document.body.innerHTML = test.a
