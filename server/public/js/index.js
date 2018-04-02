@@ -55,9 +55,9 @@
 
 	__webpack_require__(2);
 
-	var _iterator = __webpack_require__(329);
+	var _generator = __webpack_require__(329);
 
-	var _iterator2 = _interopRequireDefault(_iterator);
+	var _generator2 = _interopRequireDefault(_generator);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9221,67 +9221,34 @@
 
 	'use strict';
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	// 什么是iterator  基本用法  for of
-
 	{
-	    var arr = ['hello', 'world'];
-	    var map = arr[Symbol.iterator]();
-	    console.log(map.next());
-	    console.log(map.next());
-	    console.log(map.next());
-	}
-	{
-	    var obj = _defineProperty({
-	        start: [1, 3, 2],
-	        end: [7, 9, 8]
-	    }, Symbol.iterator, function () {
-	        var self = this;
-	        var index = 0;
-	        var arr = self.start.concat(self.end);
-	        var len = arr.length;
-	        return {
-	            next: function next() {
-	                if (index < len) {
-	                    return {
-	                        value: arr[index++],
-	                        done: true
-	                    };
-	                } else {
-	                    return {
-	                        value: arr[index++],
-	                        done: false
-	                    };
+	    var tell = /*#__PURE__*/regeneratorRuntime.mark(function tell() {
+	        return regeneratorRuntime.wrap(function tell$(_context) {
+	            while (1) {
+	                switch (_context.prev = _context.next) {
+	                    case 0:
+	                        _context.next = 2;
+	                        return 'a';
+
+	                    case 2:
+	                        _context.next = 4;
+	                        return 'b';
+
+	                    case 4:
+	                        return _context.abrupt('return', 'c');
+
+	                    case 5:
+	                    case 'end':
+	                        return _context.stop();
 	                }
 	            }
-	        };
+	        }, tell, this);
 	    });
-	    console.log('======asdfsda', obj);
-	    var _iteratorNormalCompletion = true;
-	    var _didIteratorError = false;
-	    var _iteratorError = undefined;
-
-	    try {
-	        for (var _iterator = obj[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	            var key = _step.value;
-
-	            console.log(key);
-	        }
-	    } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	    } finally {
-	        try {
-	            if (!_iteratorNormalCompletion && _iterator.return) {
-	                _iterator.return();
-	            }
-	        } finally {
-	            if (_didIteratorError) {
-	                throw _iteratorError;
-	            }
-	        }
-	    }
+	    var k = tell();
+	    console.log(k.next());
+	    console.log(k.next());
+	    console.log(k.next());
+	    console.log(k.next());
 	}
 
 /***/ })

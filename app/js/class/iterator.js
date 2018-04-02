@@ -9,6 +9,7 @@
 
 }
 {
+    // 自定义
     let obj = {
         start: [1,3,2],
         end: [7,9,8],
@@ -22,12 +23,12 @@
                     if(index<len){
                         return {
                             value: arr[index++],
-                            done: true
+                            done: false
                         }
                     }else {
                         return{
                             value: arr[index++],
-                            done: false
+                            done: true
                         }
                     }
                 }
@@ -35,9 +36,19 @@
 
         }
     }
-    console.log('======asdfsda', obj);
     for(let key of obj){
         console.log(key)
     }
+}
 
+{
+    let obj = {
+        start: [1,3,4],
+        end: [5,6,7]
+    }
+    let arr = obj.start.concat(obj.end)
+    console.log(arr);
+    for(let key of arr) {
+        console.log(key);
+    }
 }
