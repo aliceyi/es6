@@ -55,27 +55,11 @@
 
 	__webpack_require__(2);
 
-	var _model = __webpack_require__(329);
+	var _lottery = __webpack_require__(329);
 
-	var _model2 = _interopRequireDefault(_model);
+	var _lottery2 = _interopRequireDefault(_lottery);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// console.log(A, test, Hello)
-	console.log(new _model2.default.Hello().test());
-
-	// class Test {
-	//     constructor() {
-	//         this.a ='hellossssaaa'
-	//     }
-	// }
-
-	// let test = new Test();
-
-	// document.body.innerHTML = test.a
-
-	// import letConst from './class/model'
-	// import {A, test, Hello} from './class/model'
 
 /***/ }),
 /* 2 */
@@ -9218,7 +9202,90 @@
 
 /***/ }),
 /* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(330);
+
+	__webpack_require__(331);
+
+	__webpack_require__(332);
+
+	__webpack_require__(333);
+
+/***/ }),
+/* 330 */
 /***/ (function(module, exports) {
+
+	"use strict";
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Timer = function () {
+	    function Timer() {
+	        _classCallCheck(this, Timer);
+	    }
+
+	    _createClass(Timer, [{
+	        key: 'countdown',
+	        value: function countdown(end, update, handel) {
+	            var now = new Date().getTime();
+	            var self = this;
+	            if (now - end > 0) {
+	                handel.call(self);
+	            } else {
+	                var last_time = end - now;
+	                var px_d = 1000 * 60 * 60 * 24;
+	                var px_h = 1000 * 60 * 60;
+	                var px_m = 1000 * 60;
+	                var px_s = 1000;
+	                var day = Math.floor(last_time / px_d);
+	                var hour = Math.floor((last_time - px_d * day) / px_h);
+	                var min = Math.floor((last_time - px_d * day - px_h * houer) / px_m);
+	                var s = Math.floor((last_time - px_d * day - px_h * houer - px_min * min) / px_s);
+	                var arry = [];
+	                if (day > 0) {
+	                    arry.push('<em>' + day + ' \u5929</em>');
+	                }
+	                if (arry.length > 0 || hour > 0) {
+	                    arry.push('<em>' + hour + ' \u65F6</em>');
+	                }
+	                if (arry.length > 0 || min > 0) {
+	                    arry.push('<em>' + min + ' \u5206</em>');
+	                }
+	                if (arry.length > 0 || s > 0) {
+	                    arry.push('<em>' + s + ' \u79D2</em>');
+	                }
+	                self.last_time = arry.join('');
+	                update.call(self, arry.join(''));
+	                setTimeout(function () {
+	                    self.countdown(end, update, handel);
+	                }, 1000);
+	            }
+	        }
+	    }]);
+
+	    return Timer;
+	}();
+
+/***/ }),
+/* 332 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -9228,45 +9295,102 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _jquery = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"jquery\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	// import export
-	// export let A = 123
-	// export function test() {
-	//     console.log('test');
-
-	// }
-	// export class Hello {
-	//     test(){
-	//         console.log('class test');
-	//     }
-	// }
-
-	var A = 123;
-	var test = function test() {
-	    console.log('test');
-	};
-
-	var Hello = function () {
-	    function Hello() {
-	        _classCallCheck(this, Hello);
+	var Interface = function () {
+	    function Interface() {
+	        _classCallCheck(this, Interface);
 	    }
 
-	    _createClass(Hello, [{
-	        key: 'test',
-	        value: function test() {
-	            console.log('class test');
+	    _createClass(Interface, [{
+	        key: 'getOmit',
+
+	        /**
+	         * 获取遗漏数据
+	         * @param {string} issue [当前都期数] 
+	         */
+	        value: function getOmit(issue) {
+	            var self = this;
+	            return new Promise(function (resolve, reject) {
+	                _jquery2.default.ajax({
+	                    url: '/get/omit',
+	                    data: {
+	                        issue: issue
+	                    },
+	                    dataType: 'json',
+	                    success: function success(res) {
+	                        self.setOmit(res.data);
+	                        resolve.call(self, res);
+	                    },
+	                    error: function error(err) {
+	                        reject.call(err);
+	                    }
+	                });
+	            });
+	        }
+	        /**
+	         * 获取开奖时间
+	         * @param {string} issue 
+	         */
+
+	    }, {
+	        key: 'getOpenCode',
+	        value: function getOpenCode(issue) {
+	            var self = this;
+	            return new Promise(function (resolve, reject) {
+	                _jquery2.default.ajax({
+	                    url: '/get/opencode',
+	                    data: {
+	                        issue: issue
+	                    },
+	                    dataType: 'json',
+	                    success: function success(res) {
+	                        self.setOpenCode(res);
+	                        resolve.call(self, res);
+	                    },
+	                    error: function error(err) {
+	                        reject.call(err);
+	                    }
+	                });
+	            });
+	        }
+	        /**
+	         * 获取当前状态
+	         * @param {*} res 
+	         */
+
+	    }, {
+	        key: 'getState',
+	        value: function getState(issue) {
+	            var self = this;
+	            return new Promise(function (resolve, reject) {
+	                _jquery2.default.ajax({
+	                    url: '/get/state',
+	                    data: {
+	                        issue: issue
+	                    },
+	                    dataType: 'json',
+	                    success: function success(res) {
+	                        resolve.call(self, res);
+	                    },
+	                    error: function error(err) {
+	                        reject.call(err);
+	                    }
+	                });
+	            });
 	        }
 	    }]);
 
-	    return Hello;
+	    return Interface;
 	}();
 
-	exports.default = {
-	    A: A,
-	    test: test,
-	    Hello: Hello
-	};
+	exports.default = Interface;
 
 /***/ })
 /******/ ]);
