@@ -17,3 +17,6 @@ import Lottery from './lottery'
 // let test = new Test();
 
 // document.body.innerHTML = test.a
+
+const syy = new Lottery()
+console.log('syy',syy);

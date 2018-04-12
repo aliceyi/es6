@@ -12,8 +12,8 @@ class Timer{
             let px_s = 1000 
             let day = Math.floor (last_time / px_d)
             let hour = Math.floor((last_time - px_d * day) / px_h)
-            let min = Math.floor ((last_time -  px_d * day - px_h * houer) / px_m)
-            let s = Math.floor((last_time -  px_d * day - px_h * houer - px_min * min) / px_s)
+            let min = Math.floor ((last_time -  px_d * day - px_h * hour) / px_m)
+            let s = Math.floor((last_time -  px_d * day - px_h * hour - px_m * min) / px_s)
             let arry = []
             if( day > 0 ){
                 arry.push(`<em>${day} 天</em>`)
@@ -35,4 +35,4 @@ class Timer{
         }
     }
 }
-export default Timmer
+export default Timer
